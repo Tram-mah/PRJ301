@@ -59,8 +59,9 @@ public class MainController extends HttpServlet {
 
         String url = SEARCH_PAGE;
         List<ExamCategoriesDTO> listecdao = ecdao.readAll();
-        request.setAttribute("list", listecdao);
-
+        List<ExamsDTO> listedao = edao.readAll();
+        request.setAttribute("listecdao", listecdao);
+        request.setAttribute("listedao", listedao);
         return url;
     }
 
@@ -142,7 +143,7 @@ public class MainController extends HttpServlet {
                     checkError = true;
                     request.setAttribute("txtSubject_error", "Subject Just only (EnglishFunny,EnglishSame,EnglishMix) !");
                 }
-                if (category_id < 0 || category_id > 7) {
+                if (category_id < 0 && category_id > 7) {
                     checkError = true;
                     request.setAttribute("txtCategoryID_error", "Category ID must be greater than zero and Just enter [1-7] !");
                 }
@@ -150,23 +151,23 @@ public class MainController extends HttpServlet {
                     checkError = true;
                     request.setAttribute("txtTotalMarks_error", "Score must be greater than zero !");
                 }
-                if (Duration < 0 || Duration > 200) {
+                if (Duration < 0 && Duration > 200) {
                     checkError = true;
                     request.setAttribute("txtDuration_error", "Duration is less than 200 minutes !");
                 }
 
                 ExamsDTO exam = new ExamsDTO(exam_id, exam_title, Subject, category_id, total_marks, Duration);
-
+                //Dữ liệu sẽ được thêm vào database bằng edao.create(exam);
                 if (!checkError) {
                     edao.create(exam);
                     // search
-                    url = SEARCH_PAGE;
-                    processSearch(request, response);
+                    request.getRequestDispatcher(SEARCH_PAGE).forward(request, response);
                 } else {
                     request.setAttribute("exam", exam);
                     url = EXAM_FORM_PAGE;
                 }
             } catch (Exception e) {
+                System.out.println("e.toString");
             }
         }
         return url;
@@ -204,7 +205,7 @@ public class MainController extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            log("Error at ControllerLogin : " + e.toString());
+            log("Error at MainController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -25,10 +25,9 @@ public class ExamsDAO implements IDAO<ExamsDTO, Integer> {
 
     @Override
     public boolean create(ExamsDTO entity) {
-        String sql = "INSERT INTO [dbo].[tblExams] "
-                + "([exam_id], [exam_title], [Subject], [category_id], [total_marks], [Duration]) "
+        String sql = "INSERT INTO [dbo].[tblExams] ([exam_id], [exam_title], [Subject], [category_id], [total_marks], [Duration]) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
-
+//INSERT INTO tblExams (exam_id, exam_title, Subject, category_id, total_marks, Duration) VALUES
         try {
             Connection conn = DBUtils.getConnection();
             PreparedStatement psmt = conn.prepareStatement(sql);
@@ -40,8 +39,10 @@ public class ExamsDAO implements IDAO<ExamsDTO, Integer> {
             psmt.setInt(6, entity.getDuration());
             int i = psmt.executeUpdate();
             return i > 0;
-        } catch (Exception e) {
-            System.out.println(e.toString());
+        }catch (ClassNotFoundException ex) {
+            Logger.getLogger(ExamsDTO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ExamsDTO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -195,25 +196,6 @@ public class ExamsDAO implements IDAO<ExamsDTO, Integer> {
         } catch (Exception e) {
         }
         return list;
-    }
-
-    public static boolean insertExam(ExamsDTO exam) {
-        String sql = "INSERT INTO tblExams (exam_title, subject, category_id, total_marks, duration) VALUES (?, ?, ?, ?, ?)";
-        try (Connection con = DBUtils.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setString(1, exam.getExam_title());
-            ps.setString(2, exam.getSubject());
-            ps.setInt(3, exam.getCategory_id());
-            ps.setInt(4, exam.getTotal_marks());
-            ps.setInt(5, exam.getDuration());
-            
-            return ps.executeUpdate() > 0; 
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
     }
     
     public List<ExamsDTO> viewExam(){
