@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package prj301.pe.user;
 
 /**
  *
- * @author Admin
+ * @author hoadnt
  */
-public interface IDAO<T,S> {
+public class UserError {
+    
     
 }

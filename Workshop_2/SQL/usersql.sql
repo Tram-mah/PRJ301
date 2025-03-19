@@ -8,24 +8,21 @@
  * Created: Mar 10, 2025
  */
 
--- Tạo database
-CREATE DATABASE prj301_1820_workshop2
+
+CREATE DATABASE prj301_1820_workshop_02
 GO
 
--- Sử dụng database vừa tạo
-USE prj301_1820_workshop2
+USE prj301_1820_workshop_02
 GO
 
--- Tạo bảng tblUsers
 CREATE TABLE tblUsers (
-    username varchar(50) PRIMARY KEY,
-    Name varchar(100) NOT NULL,
-    password varchar(255) NOT NULL,
+    username VARCHAR(50) PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     Role VARCHAR(20) NOT NULL CHECK (Role IN ('Instructor', 'Student'))
 );
 GO
 
--- Thêm 3 người dùng mẫu với tên tiếng Việt
 INSERT INTO tblUsers (username, Name, password, Role) VALUES
 ('nguyenan', N'Nguyễn An', 'password123', 'Student'),
 ('tranbinh', N'Trần Bình', 'securepass', 'Instructor'),

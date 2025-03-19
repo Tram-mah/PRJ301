@@ -1,6 +1,6 @@
 <%-- 
     Document   : login
-    Created on : Mar 15, 2025, 12:42:03 PM
+    Created on : Mar 11, 2025, 12:42:03 PM
     Author     : Admin
 --%>
 
@@ -12,86 +12,89 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Đăng nhập</title>
         <style>
+            /* Container chính */
             .login-container {
                 min-height: 500px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: #f5f5f5;
+                background: #f5f5f5;
                 padding: 20px;
             }
 
+            /* Form đăng nhập */
             .login-form {
-                background: white;
+                background: #fff;
                 padding: 30px;
                 border-radius: 8px;
-                border: 3px solid #EDC237; /* Viền vàng đậm hơn */
-                box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Đổ bóng mạnh hơn */
-                width: 100%;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
                 max-width: 400px;
-                transition: all 0.3s ease;
+                width: 100%;
             }
 
-            .login-form:hover {
-                box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.3); /* Hiệu ứng khi hover */
-            }
-
-            .form-group {
+            /* Tiêu đề */
+            .form-title {
+                text-align: center;
                 margin-bottom: 20px;
+                font-size: 20px;
+                font-weight: bold;
+                color: #333;
+            }
+
+            /* Ô nhập */
+            .form-group {
+                margin-bottom: 15px;
             }
 
             .form-group label {
-                display: block;
-                margin-bottom: 8px;
-                font-weight: 600; /* Chữ đậm hơn */
+                font-weight: 500;
                 color: #333;
+                display: block;
+                margin-bottom: 5px;
             }
 
             .form-group input {
                 width: 100%;
-                padding: 12px;
-                border: 2px solid #ddd;
-                border-radius: 6px;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
                 font-size: 16px;
-                transition: all 0.3s ease;
+                transition: 0.3s;
             }
 
             .form-group input:focus {
-                border-color: #EDC237;
-                box-shadow: 0px 0px 8px rgba(237, 194, 55, 0.5);
+                border-color: #4CAF50;
+                box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
                 outline: none;
             }
 
+            /* Nút đăng nhập */
             .submit-btn {
-                background: linear-gradient(135deg, #EDC237, #D1A62D);
-                color: white;
-                padding: 14px 20px;
+                background: #4CAF50;
+                color: #fff;
+                padding: 12px;
                 border: none;
-                border-radius: 6px;
+                border-radius: 5px;
+                font-size: 16px;
                 cursor: pointer;
                 width: 100%;
-                font-size: 18px;
-                font-weight: bold;
-                text-transform: uppercase;
-                transition: all 0.3s ease;
-                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+                transition: 0.3s;
             }
 
             .submit-btn:hover {
-                background: linear-gradient(135deg, #D1A62D, #B88C26);
-                box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+                background: #45a049;
             }
 
-            .form-title {
-                text-align: center;
-                margin-bottom: 30px;
-                color: #333;
-                font-size: 24px;
-                font-weight: bold;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
+            /* Responsive */
+            @media (max-width: 480px) {
+                .login-form {
+                    padding: 20px;
+                }
 
+                .submit-btn {
+                    font-size: 14px;
+                }
+            }
         </style>
     </head>
     <body>

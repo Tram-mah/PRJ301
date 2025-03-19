@@ -21,10 +21,23 @@ CREATE TABLE tblQuestions (
 GO
 
 INSERT INTO tblQuestions (question_id, exam_id, question_text, option_a, option_b, option_c, option_d, correct_option) VALUES
-(1, 1, 'Số nào là số nguyên tố?', '4', '6', '7', '9', 'C'), -- SỐ nào là số nguyên tố: 7 là số nguyên tố nên đáp án C
-(2, 1, 'Kết quả của 5 + 3 × 2 là?', '16', '11', '10', '13', 'B'), -- 
-(3, 2, 'Vật lý: Đơn vị đo lực là gì?', 'Newton', 'Joule', 'Watt', 'Pascal', 'A'),
-(4, 3, 'Nguyên tố nào có ký hiệu hóa học là O?', 'Vàng', 'Oxi', 'Bạc', 'Sắt', 'B'),
-(5, 4, 'Which is the synonym of "happy"?', 'Sad', 'Joyful', 'Angry', 'Bored', 'B')
-(5, 5, '[日本語]?', 'Tiếng Quảng', 'Tiếng Tây Ban Nha', 'Tiếng Nhât', 'Tiếng Trung', 'C');
+--Quiz1
+(1, 1, 'What key does not lock the door?', 'Keyboard', 'Keycap', '7', 'Key words', 'C'), -- EnglishFunny (Quiz1)
+
+
+--Quiz2
+(2, 4, 'Which months have the 28th day?', 'February', 'January', 'All months', 'November', 'C'), -- EnglishFunny (Quiz2)
+
+
+--Midterm1
+(3, 2, 'Which is the synonym of "happy"?', 'Sturdy', 'Powerful', 'Challenging', 'Bright', 'D'), -- Synonymous (Midterm1) 
+
+
+--Midterm2  
+(4, 5, 'Which is the synonym of "Clever"?', 'Sad', 'Joyful', 'Angry', 'Bored', 'B'), -- Synonymous (Midterm2) 
+
+
+--Final
+(5, 3, 'What is a force measurement unit?', 'Newton', 'Joule', 'Watt', 'Pascal', 'A'), -- Multidisciplinary Integration (Final1)
+(6, 6, 'Which element has a chemical Oxygen?', 'Au', 'Oxi', 'Ag', 'Fe', 'B'); -- Multidisciplinary Integration (Final2)
 GO

@@ -16,10 +16,10 @@ CREATE TABLE tblExamCategories(
 GO
 
 INSERT INTO tblExamCategories (category_id, category_name, description) VALUES
-(1, 'Quiz', N'Bài kiểm tra ngắn để đánh giá kiến thức cơ bản'),
-(2, 'Midterm', N'Bài kiểm tra giữa kỳ đánh giá tiến trình học tập'),
-(3, 'Final', N'Bài kiểm tra cuối kỳ đánh giá toàn bộ kiến thức học kỳ'),
-(4, 'Quiz', N'Bài kiểm tra nhanh trong lớp học'),
-(5, 'Midterm', N'Bài kiểm tra giữa kỳ có tính điểm cao'),
-(6, 'Final', N'Bài thi cuối kỳ với nhiều dạng câu hỏi');
+(1, 'Quiz', 'Multichoice-Short test in class by your Instructor'),
+(2, 'Midterm', 'The midterm exam-An assessment given halfway through an academic term'),
+(3, 'Final', 'Final exam-The final test in the end of the course'),
+(4, 'Quiz', 'Multichoice-Short test in class by your Instructor'),
+(5, 'Midterm', 'The midterm exam-An assessment given halfway through an academic term'),
+(6, 'Final', 'Final exam-The final test in the end of the course');
 GO

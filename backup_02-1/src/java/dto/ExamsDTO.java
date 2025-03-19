@@ -15,7 +15,6 @@ public class ExamsDTO {
     private String Subject;
     private int category_id;
     private int total_marks;
-    private int Duration;
 
     public ExamsDTO() {
         this.exam_id = 0;
@@ -23,16 +22,15 @@ public class ExamsDTO {
         this.Subject = "";
         this.category_id = 0;
         this.total_marks = 0;
-        this.Duration = 0;
+
     }
 
-    public ExamsDTO(int exam_id, String exam_title, String Subject, int category_id, int total_marks, int Duration) {
+    public ExamsDTO(int exam_id, String exam_title, String Subject, int category_id, int total_marks) {
         this.exam_id = exam_id;
         this.exam_title = exam_title;
         this.Subject = Subject;
         this.category_id = category_id;
         this.total_marks = total_marks;
-        this.Duration = Duration;
     }
 
     public int getExam_id() {
@@ -73,14 +71,6 @@ public class ExamsDTO {
 
     public void setTotal_marks(int total_marks) {
         this.total_marks = total_marks;
-    }
-
-    public int getDuration() {
-        return Duration;
-    }
-
-    public void setDuration(int Duration) {
-        this.Duration = Duration;
     }
     
     
