@@ -161,7 +161,8 @@ public class MainController extends HttpServlet {
                 if (!checkError) {
                     edao.create(exam);
                     // search
-                    request.getRequestDispatcher(SEARCH_PAGE).forward(request, response);
+                    url = SEARCH_PAGE;
+                    processSearch(request, response);
                 } else {
                     request.setAttribute("exam", exam);
                     url = EXAM_FORM_PAGE;
