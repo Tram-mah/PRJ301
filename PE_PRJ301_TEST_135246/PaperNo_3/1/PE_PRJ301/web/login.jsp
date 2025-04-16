@@ -14,8 +14,14 @@
     <body>
         <!--your code here-->
         <h1>Login information</h1>
-        
+        <hr/>
+        <form action="MainController" method="post">
+            <input type="hidden" name="action" value="Login" />
+            User name: <input type="text" name="txtUserID"/> <br/>
+            Password:  <input type="password" name="txtPassword"/><br/>
+            <input type="submit" value="Login"/>
+            
+        </form>        
     </body>
     
 </html>
-

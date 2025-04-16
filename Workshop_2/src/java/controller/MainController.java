@@ -84,20 +84,26 @@ public class MainController extends HttpServlet {
             throws ServletException, IOException {
 
         String url = SEARCH_PAGE;
-        String category_id = request.getParameter("category_id");
-        System.out.println(category_id);
-        if (category_id != null && !category_id.isEmpty()) {
-            int category_idInt = Integer.parseInt(category_id);
-            List<ExamsDTO> listExamDTO = ExamsDAO.getExamCategoryByID(category_idInt);
-            String category_name = ecdao.getCategoryNameById(category_idInt);
-            request.setAttribute("listExamDTO", listExamDTO);
-            request.setAttribute("category_name", category_name);
-        } else {
-            request.setAttribute("message_Filter", "Please choose Category Name!");
+        HttpSession session = request.getSession();
+        try {
+            String strcategory_id = request.getParameter("txtCategory_id_viewexam");
+            List<ExamsDTO> listExambyCate = null;
+            if (strcategory_id != null || !strcategory_id.isEmpty()) {
+                try {
+                    int category_id = Integer.parseInt(strcategory_id);
+                    listExambyCate = edao.getExambyCategoryID(category_id);
+                    request.setAttribute("txtCategory_id_viewexam", category_id);
+                } catch (NumberFormatException e) {
+                    log("Invalid category ID: " + strcategory_id);
+                }
+            }
+            request.setAttribute("listExambyCate", listExambyCate);
+        } catch (Exception e) {
+            log("Error at processViewExamsByCategory: " + e.toString());
         }
-        List<ExamCategoriesDTO> list = ecdao.readAll();
-        request.setAttribute("list", list);
-        url = SEARCH_PAGE;
+        processViewExamCategory(request, response);
+        url = EXAM_FORM_PAGE;
+
         return url;
     }
 
@@ -162,6 +168,8 @@ public class MainController extends HttpServlet {
                     edao.create(exam);
                     // search
                     url = SEARCH_PAGE;
+                    processViewExam(request, response);
+                    processViewExamCategory(request, response);
                     processSearch(request, response);
                 } else {
                     request.setAttribute("exam", exam);

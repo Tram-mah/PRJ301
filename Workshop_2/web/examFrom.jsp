@@ -4,6 +4,8 @@
     Author     : Admin
 --%>
 
+<%@page import="dto.ExamCategoriesDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="utils.AuthUtils"%>
 <%@page import="dto.UserDTO"%>
 <%@page import="dto.ExamsDTO"%>
@@ -35,7 +37,45 @@
                 align-items: center;
                 min-height: calc(100vh - 150px); /* Account for header and footer */
             }
+            /* view exam by category styles */
+        h2 {
+            color: #FAD105;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            padding-top: 20px;
+        }
 
+        .selectCategory {
+            background-color: #58C7F4;
+            padding: 10px;
+            border-radius: 10px;
+            width: 30%;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        label {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+        }
+
+        select {
+            background-color: white;
+            color: #333;
+            padding: 8px;
+            border: 2px solid #FAD105;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #FAD105;
+            box-shadow: 0 0 5px #FAD105;
+        }
+        
             .form-container {
                 background-color: white;
                 border-radius: 8px;
@@ -167,10 +207,63 @@
     </head>
     <body>
         <jsp:include page="header.jsp"/>
-
         <div class="page-content">
             <% if (AuthUtils.isLoggedIn(session)) {
-                    UserDTO user = AuthUtils.getUser(session);
+                UserDTO user = AuthUtils.getUser(session);
+                    if (AuthUtils.isStudent(session)) {
+            %>
+            <div class="selectCategory">
+                <form action="MainController" method="post">
+                    <input type="hidden" name="action" value="getExambyCategoryID"/>
+                    <label for="category">Select Category:</label>
+                    <select name="txtCategory_id" id="txtCategory_id">
+                        <option value="0"> Choose... </option>
+                        <option value="1"> Quiz </option>
+                        <option value="2"> Midterm </option>
+                        <option value="3"> Final </option>
+                    </select>
+                </form>
+            </div>
+            
+            <% } %>
+
+
+            <% if (request.getAttribute("listExamByCate") != null) {
+                    List<ExamsDTO> listExamByCate = (List<ExamsDTO>) request.getAttribute("listExamByCate");
+            %>
+
+            <h2>View Exams by Category</h2>
+
+            <table class="book-table">
+                <thead>
+                    <tr>
+                        <th>Exam ID</th>
+                        <th>Exam Title</th>
+                        <th>Subject</th>
+                        <th>Total Marks</th>
+                        <th>Duration (minutes)</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% for (ExamsDTO exam : listExamByCate) {%>
+                    <tr>
+                        <td><%= exam.getExam_id()%></td>
+                        <td><%= exam.getExam_title()%></td>
+                        <td><%= exam.getSubject()%></td>
+                        <td><%= exam.getTotal_marks()%></td>
+                        <td><%= exam.getDuration()%></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+
+            <% } %>
+            
+        </div>
+
+        <div class="page-content">
+            <% 
                     if (AuthUtils.isInstructor(session)) {
             %>
             <%
@@ -208,11 +301,11 @@
                         <% if (!txtExamID_error.isEmpty()) {%>
                         <div class="error-message"><%=txtExamID_error%></div>
                         <% }%>
-                    </div>
+                    </div>  
 
                     <div class="form-group">
                         <label for="txtExamTitle">Exam Title:</label>
-                        <input type="text" id="txtExamTitle" name="txtProjectName" value="<%=edto.getExam_title()%>"/>
+                        <input type="text" id="txtExamTitle" name="txtExamTitle" value="<%=edto.getExam_title()%>"/>
                         <% if (!txtExamTitle_error.isEmpty()) {%>
                         <div class="error-message"><%=txtExamTitle_error%></div>
                         <% }%>
@@ -221,6 +314,9 @@
                     <div class="form-group">
                         <label for="txtSubject">Subject:</label>
                         <input type="text" id="txtSubject" name="txtSubject" value="<%=edto.getSubject()%>"/>
+                        <% if (!txtSubject_error.isEmpty()) {%>
+                        <div class="error-message"><%=txtSubject_error%></div>
+                        <% }%>
                     </div>
 
                     <div class="form-group">
@@ -238,7 +334,7 @@
                         <div class="error-message"><%=txtTotalMarks_error%></div>
                         <% }%>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="txtDuration">Duration (minutes):</label>
                         <input type="number" id="txtDuration" name="txtDuration" value="<%=edto.getDuration()%>"/>
@@ -255,6 +351,7 @@
 
                 <a href="MainController?action=search" class="back-link">Back to Exam List</a>
             </div>
+                    
             <%} else {%>
             <div class="form-container error-container">
                 <h1>403 Error</h1>
@@ -262,7 +359,11 @@
                 <a href="MainController?action=search" class="back-link">Back to Exam List</a>
             </div>
             <%}
-            } else {%>
+                }
+
+                
+                
+            else {%>
             <div class="form-container error-container">
                 <h1>Access Denied</h1>
                 <p>Please log in to access this page.</p>

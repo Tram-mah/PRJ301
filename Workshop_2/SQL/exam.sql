@@ -22,8 +22,5 @@ GO
 INSERT INTO tblExams (exam_id, exam_title, Subject, category_id, total_marks, Duration) VALUES
 (1, 'Quiz', 'EnglishFunny', 1, 100, 30),
 (2, 'Midterm', 'EnglishSame', 2, 50, 60),
-(3, 'Final', 'EnglishMix', 3, 90, 120),
-(4, 'Quiz', 'EnglishFunny', 4, 25, 45),
-(5, 'Midterm ', 'EnglishSame', 5, 60, 100),
-(6, 'Final', 'EnglishMix', 6, 95, 120);
+(3, 'Final', 'EnglishMix', 3, 90, 120);
 GO

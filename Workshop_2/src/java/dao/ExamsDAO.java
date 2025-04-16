@@ -173,8 +173,8 @@ public class ExamsDAO implements IDAO<ExamsDTO, Integer> {
         return result;
     }
 
-    public static List<ExamsDTO> getExamCategoryByID(int category_id) {
-        String sql = "  SELECT exam_id, exam_title, subject,category_id, total_marks, duration"
+    public static List<ExamsDTO> getExambyCategoryID(int category_id) {
+        String sql = "  SELECT *"
                 + " FROM tblExams  "
                 + "WHERE category_id = ? ";
         List<ExamsDTO> list = new ArrayList<>();

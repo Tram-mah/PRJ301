@@ -7,10 +7,14 @@ package prj301.pe.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import prj301.pe.user.UserDAO;
+import prj301.pe.user.UserDTO;
 
 /**
  *
@@ -18,21 +22,60 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MainController extends HttpServlet {
 
-    private static final String WELCOME="login.jsp";
-    
-    
-    
+    private static final String WELCOME = "login.jsp";
+
+    public UserDTO getUser(String strUserID) {
+        UserDAO udao = new UserDAO();
+        UserDTO user = udao.readById(strUserID);
+        return user;
+    }
+
+    public boolean isValidLogin(String strUserID, String strPassword) {
+        UserDTO user = getUser(strUserID);
+        System.out.println(user);
+        System.out.println(strPassword);
+        return user != null && user.getPassword().equals(strPassword);
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url= WELCOME;
+        String url = WELCOME;
         try {
-            String action= request.getParameter("action");
-            
-
+            String action = request.getParameter("action");
+            System.out.println("action: " + action);
+            if (action == null) {
+                url = WELCOME;
+            } else {
+                if (action.equals("Login")) {
+                    String strUserID = request.getParameter("txtUserID");
+                    String strPassword = request.getParameter("txtPassword");
+                    if (isValidLogin(strUserID, strPassword)) {
+                        url = "admin.jsp";
+                        UserDTO user = getUser(strUserID);
+                        request.getSession().setAttribute("user", user);
+                    } else {
+                        request.setAttribute("message", "Incorrect UserID or Password");
+                        url = WELCOME;
+                    }
+                } else if (action.equals("logout")) {
+                    HttpSession session = request.getSession();
+                    if (session.getAttribute("user") != null) {
+                        request.getSession().invalidate(); 
+                        url = WELCOME;
+                    }
+                } else if (action.equals("search")) {
+                    HttpSession session = request.getSession();
+                    if (session.getAttribute("user") != null) {
+                        // search
+                        //search(request, response);
+                        url = "admin.jsp";
+                    }
+                }
+            }
         } catch (Exception e) {
-            log("error at MainController: "+ e.toString());
-        }finally{
+            log("error at MainController: " + e.toString());
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
